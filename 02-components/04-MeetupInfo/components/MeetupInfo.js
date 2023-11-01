@@ -27,11 +27,11 @@ export default defineComponent({
     <ul class="meetup-info">
     <li>
       <img class="icon meetup-info__icon" alt="icon" src="/assets/icons/icon-user.svg"/>
-      {{ this.organizer }}
+      {{ organizer }}
     </li>
     <li>
       <img class="icon meetup-info__icon" alt="icon" src="/assets/icons/icon-map.svg"/>
-      {{ this.place }}
+      {{ place }}
     </li>
     <li>
       <img class="icon meetup-info__icon" alt="icon" src="/assets/icons/icon-cal-lg.svg"/>

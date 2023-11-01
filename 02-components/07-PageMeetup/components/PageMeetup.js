@@ -58,7 +58,7 @@ export default defineComponent({
     </UiContainer>
 
     <UiContainer v-if="error">
-      <UiAlert :text="this.error"/>
+      <UiAlert :text="error"/>
     </UiContainer>
     </div>`,
 });
