@@ -44,22 +44,21 @@ export default defineComponent({
         this.meetup = null;
         this.meetup = await fetchMeetupById(this.meetupId);
       } catch (error) {
-        this.error = 'Test Error';
-      } finally {
-        this.loading = false;
+        this.error = error.message;
       }
+      this.loading = false;
     }
   },
 
   template: `
     <div class="page-meetup">
     <MeetupView v-if="meetup" :meetup="meetup"/>
-    <UiContainer>
-      <UiAlert v-if="loading" :text="'Загрузка...'"/>
+    <UiContainer v-if="loading">
+      <UiAlert :text="'Загрузка...'"/>
     </UiContainer>
 
-    <UiContainer>
-      <UiAlert v-if="error" :text="this.error"/>
+    <UiContainer v-if="error">
+      <UiAlert :text="this.error"/>
     </UiContainer>
     </div>`,
 });

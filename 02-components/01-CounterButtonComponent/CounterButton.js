@@ -14,5 +14,5 @@ export default defineComponent({
       this.$emit('update:count', this.count + 1);
     }
   },
-  template: `<button type="button" @click="this.incrementCounter">{{ this.count }}</button>`,
+  template: `<button type="button" @click="incrementCounter">{{ count }}</button>`,
 });
