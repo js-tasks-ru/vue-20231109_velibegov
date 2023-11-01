@@ -7,16 +7,16 @@ export default defineComponent({
   props: {agendaItem: Object},
 
   computed: {
-    icon: function() {
+    icon() {
       return `/assets/icons/icon-${agendaItemIcons[this.agendaItem['type']]}.svg`;
     },
-    title: function() {
+    title() {
       return this.agendaItem['title'] ?? agendaItemDefaultTitles[this.agendaItem['type']]
     },
-    duration: function() {
+    duration() {
       return `${this.agendaItem['startsAt']} - ${this.agendaItem['endsAt']}`;
     },
-    isTalkType: function() {
+    isTalkType() {
       return this.agendaItem['type'] === 'talk';
     }
   },
@@ -29,7 +29,7 @@ export default defineComponent({
       <div class="agenda-item__col">{{ duration }}</div>
       <div class="agenda-item__col">
         <h3 class="agenda-item__title">{{ title }}</h3>
-        <p class="agenda-item__talk" v-show="isTalkType">
+        <p class="agenda-item__talk" v-if="isTalkType">
           <span>{{ agendaItem['speaker'] }}</span>
           <span class="agenda-item__dot"></span>
           <span class="agenda-item__lang">{{ agendaItem['language'] }}</span>
