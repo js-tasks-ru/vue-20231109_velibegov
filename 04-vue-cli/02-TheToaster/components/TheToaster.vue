@@ -1,73 +1,58 @@
 <template>
-  <div class="toasts">
-    <div class="toast toast_success">
-      <UiIcon class="toast__icon" icon="check-circle" />
-      <span>Success Toast Example</span>
-    </div>
-
-    <div class="toast toast_error">
-      <UiIcon class="toast__icon" icon="alert-circle" />
-      <span>Error Toast Example</span>
-    </div>
+  <div>
+    <ToastList>
+      <template v-for="(toast, index) in toasts" :key="index">
+        <UiToast :toast="toast" @hide-toast="hideToast(toast)"/>
+      </template>
+    </ToastList>
   </div>
 </template>
 
 <script>
-import UiIcon from './UiIcon.vue';
+import ToastList from "./ToastList.vue";
+import UiToast from "./UiToast.vue";
 
 export default {
   name: 'TheToaster',
 
-  components: { UiIcon },
+  data() {
+    return {
+      basicOptions: {
+        showToast: true,
+        disableTime: 5000,
+      },
+      toasts: [],
+    }
+  },
+
+  components: {ToastList, UiToast},
+
+  methods: {
+    success(message) {
+      const options = {
+        toastClass: 'toast_success',
+        toastIconSrc: 'check-circle',
+        toastMessage: message,
+      };
+      this.addToast({...options, ...this.basicOptions});
+    },
+
+    error(message) {
+      const options = {
+        toastClass: 'toast_error',
+        toastIconSrc: 'alert-circle',
+        toastMessage: message,
+      };
+      this.addToast({...options, ...this.basicOptions});
+    },
+
+    addToast(toastOptions) {
+      this.toasts.push(toastOptions);
+    },
+
+    hideToast(toast) {
+      toast.showToast = false;
+    },
+  },
 };
 </script>
-
-<style scoped>
-.toasts {
-  position: fixed;
-  bottom: 8px;
-  right: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  white-space: pre-wrap;
-  z-index: 999;
-}
-
-@media all and (min-width: 992px) {
-  .toasts {
-    bottom: 72px;
-    right: 112px;
-  }
-}
-
-.toast {
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: row;
-  align-items: center;
-  padding: 16px;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  font-size: 18px;
-  line-height: 28px;
-  width: auto;
-}
-
-.toast + .toast {
-  margin-top: 20px;
-}
-
-.toast__icon {
-  margin-right: 12px;
-}
-
-.toast.toast_success {
-  color: var(--green);
-}
-
-.toast.toast_error {
-  color: var(--red);
-}
-</style>
