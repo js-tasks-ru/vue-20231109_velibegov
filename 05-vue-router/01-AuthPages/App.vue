@@ -1,16 +1,19 @@
 <template>
   <div class="wrapper">
-    <MeetupsHeader />
+    <MeetupsHeader/>
     <main class="main">
-      <div>CURRENT PAGE</div>
+      <component :is="currentPage" />
     </main>
-    <MeetupsFooter />
+    <MeetupsFooter/>
   </div>
 </template>
 
 <script>
 import MeetupsHeader from './components/MeetupsHeader.vue';
 import MeetupsFooter from './components/MeetupsFooter.vue';
+import PageIndex from "./views/PageIndex.vue";
+import PageLogin from "./views/PageLogin.vue";
+import PageRegister from "./views/PageRegister.vue";
 
 export default {
   name: 'App',
@@ -18,8 +21,18 @@ export default {
   components: {
     MeetupsFooter,
     MeetupsHeader,
+    PageIndex,
+    PageLogin,
+    PageRegister,
   },
+
+  computed: {
+    currentPage() {
+      return this.$route.path === '/' ? PageIndex : this.$route.path === '/login' ? PageLogin : PageRegister;
+    },
+  }
 };
+
 </script>
 
 <style>
